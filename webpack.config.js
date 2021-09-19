@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const fs = require("fs");
 const openBrowser = require("react-dev-utils/openBrowser");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
@@ -6,11 +7,12 @@ const path = require("path");
 const host = process.env.HOST || "localhost";
 const port = parseInt(process.env.PORT, 10) || 3000;
 
-let htmlPageNames = ["index", "test"];
-let multipleHtmlPlugins = htmlPageNames.map((name) => {
+const pages = fs.readdirSync("./src/pages/");
+
+let multipleHtmlPlugins = pages.map((page) => {
   return new HtmlWebpackPlugin({
-    template: `./src/pages/${name}.html`,
-    filename: `${name}.html`,
+    template: `./src/pages/${page}`,
+    filename: page,
   });
 });
 
