@@ -40,8 +40,17 @@ module.exports = {
       },
       {
         test: /\.scss$/i,
-        include: path.resolve(__dirname, "./src/styles"),
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "postcss-loader",
+          },
+        ],
       },
     ],
   },
@@ -64,8 +73,9 @@ module.exports = {
     },
   },
   plugins: [
+    ...multipleHtmlPlugins,
     new MiniCssExtractPlugin({
       filename: "./styles/bundle.css",
     }),
-  ].concat(multipleHtmlPlugins),
+  ],
 };
